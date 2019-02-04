@@ -11,10 +11,8 @@
    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
    crossorigin=""/>
 
-  <link type="text/css" rel="stylesheet" href="css/main.css" />
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
   <script src="node_modules/leaflet/dist/leaflet.js"></script>
-    
-   <!-- <script src=js/map.js></script> -->
 
     
     
@@ -76,10 +74,8 @@
 
     <script>var P = L</script>
     
-    <script src="js/map.js"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
     
 </body>
 </html>
-
-<!-- hi -->
         
