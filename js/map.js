@@ -1,19 +1,28 @@
 
-var mymap = P.map('mapid').setView([46.04698, -118.39085], 17);
-
-	P.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-		minZoom: 17,
-		
-		id: 'mapbox.streets'
-	}).addTo(mymap);
+var mymap = P.map('mapid', {
+		crs: P.CRS.Simple,
+		minZoom: -3
+	});
      
-    var bounds = [[46.044612, -118.396032], [46.049482, -118.386923]]
+
+    var bounds = [xy(-25, -26.5), xy(1023, 1021.5)];
+
+    var image = P.imageOverlay('uqm_map_full.png', bounds).addTo(map);
             
     //var rectangle = L.rectangle(bounds, {color: "black", weight: 1, fill: false}).addTo(mymap);   
-    mymap.setMaxBounds(bounds)
+    //mymap.setMaxBounds(bounds)
     
-            
-	var popup = L.popup();
+    var yx = P.latLng;
+
+	var xy = function(x, y) {
+		if (L.Util.isArray(x)) {    // When doing xy([x, y]);
+			return yx(x[1], x[0]);
+		}
+		return yx(y, x);  // When doing xy(x, y);
+	};
+
+
+	var popup = P.popup();
 
 	function onMapClick(e) {
 		popup
@@ -23,3 +32,5 @@ var mymap = P.map('mapid').setView([46.04698, -118.39085], 17);
 	}
 
 	mymap.on('click', onMapClick);
+
+    map.setView(xy(120, 70), 1);
