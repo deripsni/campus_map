@@ -82,6 +82,7 @@
 	var Floor_0 = L.imageOverlay('Floor_0.png', bounds); //Floor image overlays
 	var Floor_1 = L.imageOverlay('Floor_1.png', bounds);
 	var Floor_2 = L.imageOverlay('Floor_2.png', bounds);
+	var Floor_3 = L.imageOverlay('Floor_3.png', bounds);
 
 	var map = L.map('mapid', {
 		crs: L.CRS.Simple,
@@ -97,7 +98,8 @@
 	var baseLayers = {		//makes floors have radial buttons when added to control
 		"Floor 0": Floor_0,
 		"Floor 1": Floor_1,
-		"Floor 2": Floor_2
+		"Floor 2": Floor_2,
+		"Floor 3": Floor_3
 	};
 
 	var overlays = {
@@ -106,7 +108,7 @@
 	control = L.control.layers(baseLayers, overlays,{hideSingleBase: true, collapsed: false});
 
 	function onZoom(e) {			//adds and removes layers based on zoom
-		if (map.getZoom() > 0){
+		if (map.getZoom() > -1){
 		control.addTo(map);
 		Floor_1.addTo(map);
 		} else {
@@ -114,6 +116,7 @@
 		Floor_0.remove();
 		Floor_1.remove();
 		Floor_2.remove();
+		Floor_3.remove();
 		}
 	}
 
