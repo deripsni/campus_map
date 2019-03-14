@@ -49,10 +49,10 @@
             <input class="form-control mr-sm-8" type="text" placeholder="Search">
             </li>     
             <li class="nav-item">
-            <a class="nav-link" href="#">Yass</a>
+            <a class="nav-link" href="#">Link 1</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Queen</a>
+            <a class="nav-link" href="#">Link 2</a>
             </li>
             </ul>
             </nav>
@@ -84,6 +84,8 @@
 	var Floor_2 = L.imageOverlay('Floor_2.png', bounds);
 	var Floor_3 = L.imageOverlay('Floor_3.png', bounds);
 
+	var Current = Floor_1;
+
 	var map = L.map('mapid', {
 		crs: L.CRS.Simple,
 		minZoom: -3,
@@ -110,7 +112,7 @@
 	function onZoom(e) {			//adds and removes layers based on zoom
 		if (map.getZoom() > -1){
 		control.addTo(map);
-		Floor_1.addTo(map);
+		Current.addTo(map);
 		} else {
 		control.remove();
 		Floor_0.remove();
@@ -119,6 +121,24 @@
 		Floor_3.remove();
 		}
 	}
+	
+	function onAddF0(e){
+	Current = Floor_0;
+	}
+	function onAddF1(e){
+	Current = Floor_1;
+	}
+	function onAddF2(e){
+	Current = Floor_2;
+	}
+	function onAddF3(e){
+	Current = Floor_3;
+	}
+
+	Floor_0.on('add', onAddF0);
+	Floor_1.on('add', onAddF1);
+	Floor_2.on('add', onAddF2);
+	Floor_3.on('add', onAddF3);
 
 	map.on('zoomend', onZoom);
 
