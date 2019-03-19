@@ -66,10 +66,92 @@
     
 
  </div>
+    <script>
+	
+	var yx = L.latLng;
 
+	var xy = function(x, y) {
+		if (L.Util.isArray(x)) {    // When doing xy([x, y]);
+			return yx(x[1], x[0]);
+		}
+		return yx(y, x);  // When doing xy(x, y);
+	};
+
+	var bounds = [xy(0, 0), xy(8000, 5936)];
+
+	var Floor_0 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_0.png') }}', bounds); //Floor image overlays
+	var Floor_1 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_1.png') }}', bounds);
+	var Floor_2 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_2.png') }}', bounds);
+	var Floor_3 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_3.png') }}', bounds);
+
+	var Current = Floor_1;
+
+	var map = L.map('mapid', {
+		crs: L.CRS.Simple,
+		minZoom: -3,
+		zoomDelta: 0.2,
+		zoomSnap: 0.2,
+		maxZoom:1,
+		maxBounds: [xy(0,0), xy(8000, 5936)]
+	});
+
+	var image = L.imageOverlay('{{ url_for('static', filename='assets/Main.png') }}', bounds).addTo(map); //Main image
+
+	var baseLayers = {		//makes floors have radial buttons when added to control
+		"Floor 0": Floor_0,
+		"Floor 1": Floor_1,
+		"Floor 2": Floor_2,
+		"Floor 3": Floor_3
+	};
+
+	var overlays = {
+	};
+	
+	control = L.control.layers(baseLayers, overlays,{hideSingleBase: true, collapsed: false});
+
+	function onZoom(e) {			//adds and removes layers based on zoom
+		if (map.getZoom() > -1){
+		control.addTo(map);
+		Current.addTo(map);
+		} else {
+		control.remove();
+		Floor_0.remove();
+		Floor_1.remove();
+		Floor_2.remove();
+		Floor_3.remove();
+		}
+	}
+	
+	function onAddF0(e){
+	Current = Floor_0;
+	}
+	function onAddF1(e){
+	Current = Floor_1;
+	}
+	function onAddF2(e){
+	Current = Floor_2;
+	}
+	function onAddF3(e){
+	Current = Floor_3;
+	}
+
+	Floor_0.on('add', onAddF0);
+	Floor_1.on('add', onAddF1);
+	Floor_2.on('add', onAddF2);
+	Floor_3.on('add', onAddF3);
+
+	map.on('zoomend', onZoom);
+
+	map.setView(xy(4000, 2968), -2.2);
+
+</script>
+    <!--
     <script>var P = L</script>
     
-    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script src="js/map.js"></script>
+    -->
+</body>
+</html>
     
 </body>
 </html>
