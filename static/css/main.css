@@ -1,0 +1,46 @@
+html, body {
+    height: 100%
+}
+
+body {
+    background-color: #34393D;
+    overflow: hidden;
+    margin-bottom: 30px
+}
+
+div.page-header {
+    background: #656950; 
+    color: white; 
+    font-family: Open Sans, Helvetica, Neue, Helvetica, Arial, sans-serif; 
+    text-align:center
+    
+}
+
+div.container-fluid {
+    height: 100%;
+    overflow: hidden;
+    padding-right: 0px;
+}
+
+.col {
+    height: 100%;
+}
+
+#mapid {
+    width: 100%; 
+    height: 100%; 
+    position: relative; 
+}
+
+#mapcol {
+    width: 100%; 
+    height: 100%; 
+    position: relative; 
+    padding-left:0px;
+}
+
+#logo {
+    height: 60px;
+    align-items: center;
+    background: #656950; 
+}
