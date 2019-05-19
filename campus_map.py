@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, send_from_directory, request
+from flask import Flask, render_template, url_for, send_from_directory, request, jsonify
 from flaskext.mysql import MySQL
 app = Flask(__name__, static_url_path='')
 
@@ -24,7 +24,7 @@ def index():
 def search():
     query = request.args.get('q')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM schedule WHERE (STRM LIKE %{0}% OR CLASS_NBR LIKE %{0}% OR ACAD_ORG LIKE %{0}% OR WWU_ACAD_ORG_DESCR LIKE %{0}% OR SUBJECT LIKE %{0}% OR CATALOG_NBR LIKE %{0}% OR CLASS_SECTION LIKE %{0}% OR CLASS_TITLE LIKE %{0}% OR UNITS LIKE %{0}% OR ENRL_TOT LIKE %{0}% OR ROOM LIKE %{0}% OR MTG_TIME LIKE %{0}% OR MTG_DAYS LIKE %{0}%)".format(query))
+    cursor.execute("SELECT * FROM schedule WHERE CLASS_TITLE LIKE '%{0}%'".format(query)) # STRM LIKE %{0}% OR CLASS_NBR LIKE %{0}% OR ACAD_ORG LIKE %{0}% OR WWU_ACAD_ORG_DESCR LIKE %{0}% OR SUBJECT LIKE %{0}% OR CATALOG_NBR LIKE %{0}% OR CLASS_SECTION LIKE %{0}% OR CLASS_TITLE LIKE %{0}% OR UNITS LIKE %{0}% OR ENRL_TOT LIKE %{0}% OR ROOM LIKE %{0}% OR MTG_TIME LIKE %{0}% OR MTG_DAYS LIKE %{0}%".format(query))
     data = cursor.fetchall()
     return jsonify(data)
     #return render_template('index.html', results = data)
