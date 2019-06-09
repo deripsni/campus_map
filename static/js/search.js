@@ -5,7 +5,7 @@ $( 'document' ).ready(function(){
                 if (status == 'success') {
                     $( 'ul.navbar-nav' ).empty();
                     data.forEach(element => {
-                        $( 'ul.navbar-nav' ).append('<li class="nav-item"> <a class="nav-link" href="#">' + element + '</a> </li>');
+                        $( 'ul.navbar-nav' ).append('<li class="nav-item"> <a id="locate" class="nav-link" href="#">' + element + '</a> </li>');
                     });
                 }
             });
