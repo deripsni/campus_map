@@ -1,5 +1,5 @@
-
-   $( 'ul.navbar-nav' ).on('click', '#locate', function() {
+$( 'document' ).ready(function() {
+   $( 'ul.navbar-nav' ).on('click', 'a.locate', function() {
         $.get("http://localhost:5000/locate", {q: $(this).text()}, function(data, status) {
             if (status == 'success') {
 	
@@ -26,5 +26,9 @@
 		
 		$('.leaflet-control-layers-selector')[data[0][2]].click();
             }
+	    else{
+		alert('Send Help')
+		}
         });
     });
+});
