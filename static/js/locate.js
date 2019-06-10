@@ -1,8 +1,9 @@
-$( 'document' ).ready(function() {
-    $( 'ul.navbar-nav' ).on('click', '.locate', function() {
-        $.get("http://localhost:5000/locate", {q: $(this).attr("id")}, function(data, status) {
+
+   $( 'ul.navbar-nav' ).on('click', '#locate', function() {
+        $.get("http://localhost:5000/locate", {q: $(this).text()}, function(data, status) {
             if (status == 'success') {
-                marker.setLatLng([data[0][0], data[0][1]]);
+	
+		marker.setLatLng([data[0][0], data[0][1]]);
 		marker.addTo(map);
 		map.flyTo([data[0][0], data[0][1]], 0);
 		
@@ -27,4 +28,3 @@ $( 'document' ).ready(function() {
             }
         });
     });
-});
