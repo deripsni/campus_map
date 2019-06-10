@@ -18,6 +18,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="{{ url_for('static', filename='js/search.js') }}"></script>
   <script src="{{ url_for('static', filename='js/locate.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/schedule.js') }}"></script>
    <!-- <script src=js/map.js></script> -->
 
     
@@ -67,6 +68,9 @@
  </div>
     <script>
 	
+	var marker = L.marker();
+	var popup = L.popup();
+
 	var yx = L.latLng;
 
 	var xy = function(x, y) {
@@ -78,10 +82,17 @@
 
 	var bounds = [xy(0, 0), xy(8000, 5936)];
 
-	var Floor_0 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_0.png') }}', bounds); //Floor image overlays
-	var Floor_1 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_1.png') }}', bounds);
-	var Floor_2 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_2.png') }}', bounds);
-	var Floor_3 = L.imageOverlay('{{ url_for('static', filename='assets/Floor_3.png') }}', bounds);
+	var Floor_0 = L.layerGroup();
+	Floor_0.addLayer(L.imageOverlay('{{ url_for('static', filename='assets/Floor_0.png') }}', 		bounds)); //Floor image overlays
+
+	var Floor_1 = L.layerGroup();
+	Floor_1.addLayer(L.imageOverlay('{{ url_for('static', filename='assets/Floor_1.png') }}', 		bounds));
+
+	var Floor_2 = L.layerGroup();
+	Floor_2.addLayer(L.imageOverlay('{{ url_for('static', filename='assets/Floor_2.png') }}', 		bounds));
+
+	var Floor_3 = L.layerGroup();
+	Floor_3.addLayer(L.imageOverlay('{{ url_for('static', filename='assets/Floor_3.png') }}', 		bounds));
 
 	var Current = Floor_1;
 
@@ -139,9 +150,24 @@
 	Floor_2.on('add', onAddF2);
 	Floor_3.on('add', onAddF3);
 
+	function onMapClick(e) {
+		
+		map.panTo(e.latlng);
+
+		popup
+			.setLatLng(e.latlng)
+			.setContent("You clicked the map at " + e.latlng.toString())
+			.openOn(map);
+	}
+
+	map.on('click', onMapClick);
+
 	map.on('zoomend', onZoom);
 
 	map.setView(xy(4000, 2968), -2.2);
+
+	var adm116 = L.divIcon({html: '<div class="marker">ADM 116</div>', className: 		'dummy'});
+	L.marker([3586, 5756.89], {icon: adm116}).addTo(Floor_1);
 
 </script>
     <!--

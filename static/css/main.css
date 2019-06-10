@@ -8,6 +8,14 @@ body {
     margin-bottom: 30px
 }
 
+td {
+    color:rgba(255,255,255,.5);
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
 div.page-header {
     background: #656950; 
     color: white; 
@@ -22,8 +30,25 @@ div.container-fluid {
     padding-right: 0px;
 }
 
+div.col-md-auto {
+    max-width: 475px;
+    overflow-y: scroll;
+}
+
 .col {
     height: 100%;
+}
+
+.marker{
+    width: 70px;
+    height: 10px;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    top: 50%;
+    margin-top: -5px;
+    font-weight: bold;
+    text-align: center;
 }
 
 #mapid {
